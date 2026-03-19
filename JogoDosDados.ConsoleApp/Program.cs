@@ -22,27 +22,48 @@ namespace JogoDosDados.ConsoleApp;
 4. Condição de Vitória:
     ○ O primeiro competidor a alcançar ou ultrapassar a posição final (ex.: 30) vence o jogo.
 */
-
 class Program
 {
     static void Main(string[] args)
     {
+        const int limiteLinhaChegada = 30;
+
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine("-------------------------------------------");
-            Console.WriteLine("Jogo dos Dados");
-            Console.WriteLine("-------------------------------------------");
+            int posicaoJogador = 0;
+            bool jogoEstaEmAndamento = true;
 
-            // Lógica do Jogo
-            Console.Write("Pressione ENTER para lançar um dado...");
-            Console.ReadLine();
+            while (jogoEstaEmAndamento)
+            {
+                Console.Clear();
+                Console.WriteLine("-------------------------------------------");
+                Console.WriteLine("Jogo dos Dados");
+                Console.WriteLine("-------------------------------------------");
 
-            int resultado = RandomNumberGenerator.GetInt32(1, 7);
+                // Lógica do Jogo
+                Console.Write("Pressione ENTER para lançar um dado...");
+                Console.ReadLine();
 
-            Console.WriteLine("-------------------------------------------");
-            Console.WriteLine($"O número sorteado foi: {resultado}");
-            Console.WriteLine("-------------------------------------------");
+                int resultado = RandomNumberGenerator.GetInt32(1, 7);
+
+                Console.WriteLine("-------------------------------------------");
+                Console.WriteLine($"O número sorteado foi: {resultado}");
+                Console.WriteLine("-------------------------------------------");
+
+                posicaoJogador += resultado;
+
+                if (posicaoJogador < limiteLinhaChegada)
+                    Console.WriteLine($"Você está na posição: {posicaoJogador} de {limiteLinhaChegada}");
+                else
+                {
+                    Console.WriteLine("Parabéns! Você alcançou a linha de chegada.");
+
+                    jogoEstaEmAndamento = false;
+                }
+
+                Console.Write("Pressione ENTER para continuar...");
+                Console.ReadLine();
+            }
 
             Console.Write("Deseja continuar? (s/N): ");
             string? opcaoContinuar = Console.ReadLine()?.ToUpper();
