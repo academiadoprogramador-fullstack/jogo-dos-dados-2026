@@ -114,6 +114,9 @@ class Program
                 } while (true);
                 #endregion
 
+                if (!jogoEstaEmAndamento)
+                    continue;
+
                 #region Rodada do Computador
                 do
                 {
@@ -176,7 +179,6 @@ class Program
                     }
 
                 } while (true);
-
                 #endregion
             }
 
