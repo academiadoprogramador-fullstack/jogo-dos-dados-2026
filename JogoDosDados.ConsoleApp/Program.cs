@@ -21,6 +21,10 @@ namespace JogoDosDados.ConsoleApp;
 
 4. Condição de Vitória:
     ○ O primeiro competidor a alcançar ou ultrapassar a posição final (ex.: 30) vence o jogo.
+
+v2
+    1. Refatoração estruturada com extração de métodos
+
 */
 class Program
 {
@@ -38,59 +42,79 @@ class Program
 
             while (jogoEstaEmAndamento)
             {
-                Console.Clear();
-                Console.WriteLine("-------------------------------------------");
-                Console.WriteLine("Jogo dos Dados");
-                Console.WriteLine("-------------------------------------------");
-                Console.WriteLine("Rodada do Jogador");
-                Console.WriteLine("-------------------------------------------");
-
-                // Lógica do Jogo
-                Console.Write("Pressione ENTER para lançar um dado...");
-                Console.ReadLine();
-
-                int resultadoJogador = RandomNumberGenerator.GetInt32(1, 7);
-
-                Console.WriteLine("-------------------------------------------");
-                Console.WriteLine($"O número sorteado foi: {resultadoJogador}");
-                Console.WriteLine("-------------------------------------------");
-
-                posicaoJogador += resultadoJogador;
-
-                Console.WriteLine($"Você está na posição: {posicaoJogador} de {limiteLinhaChegada}");
-
-                if (posicaoJogador == 5 || posicaoJogador == 10 || posicaoJogador == 15 || posicaoJogador == 25)
+                #region Rodada do Jogador
+                do
                 {
-                    Console.WriteLine($"\nEVENTO: Avanço de {bonusAvancoExtra} casas!");
-                    posicaoJogador += bonusAvancoExtra;
+                    Console.Clear();
+                    Console.WriteLine("-------------------------------------------");
+                    Console.WriteLine("Jogo dos Dados");
+                    Console.WriteLine("-------------------------------------------");
+                    Console.WriteLine("Rodada do Jogador");
+                    Console.WriteLine("-------------------------------------------");
 
-                    Console.WriteLine($"\nVocê está na posição: {posicaoJogador} de {limiteLinhaChegada}");
-                }
-
-                else if (posicaoJogador == 7 || posicaoJogador == 13 || posicaoJogador == 20)
-                {
-                    Console.WriteLine($"\nEVENTO: Recuo de {penalidadeRecuo} casas");
-                    posicaoJogador -= penalidadeRecuo;
-
-                    Console.WriteLine($"\nVocê está na posição: {posicaoJogador} de {limiteLinhaChegada}");
-                }
-
-                if (posicaoJogador >= limiteLinhaChegada)
-                {
-                    Console.WriteLine("\nParabéns! Você alcançou a linha de chegada.");
-
-                    jogoEstaEmAndamento = false;
-
-                    Console.Write("\nPressione ENTER para continuar...");
+                    Console.Write("Pressione ENTER para lançar um dado...");
                     Console.ReadLine();
 
-                    continue;
-                }
+                    int resultadoJogador = RandomNumberGenerator.GetInt32(1, 7);
 
-                Console.Write("\nPressione ENTER para continuar...");
-                Console.ReadLine();
+                    Console.WriteLine("-------------------------------------------");
+                    Console.WriteLine($"O número sorteado foi: {resultadoJogador}");
+                    Console.WriteLine("-------------------------------------------");
 
-                // Implementação do turno computador
+                    posicaoJogador += resultadoJogador;
+
+                    Console.WriteLine($"Você está na posição: {posicaoJogador} de {limiteLinhaChegada}");
+
+                    if (posicaoJogador == 5 || posicaoJogador == 10 || posicaoJogador == 15 || posicaoJogador == 25)
+                    {
+                        Console.WriteLine($"\nEVENTO: Avanço de {bonusAvancoExtra} casas!");
+                        posicaoJogador += bonusAvancoExtra;
+
+                        Console.WriteLine($"\nVocê está na posição: {posicaoJogador} de {limiteLinhaChegada}");
+                    }
+
+                    else if (posicaoJogador == 7 || posicaoJogador == 13 || posicaoJogador == 20)
+                    {
+                        Console.WriteLine($"\nEVENTO: Recuo de {penalidadeRecuo} casas");
+                        posicaoJogador -= penalidadeRecuo;
+
+                        Console.WriteLine($"\nVocê está na posição: {posicaoJogador} de {limiteLinhaChegada}");
+                    }
+
+                    if (posicaoJogador >= limiteLinhaChegada)
+                    {
+                        Console.WriteLine("\nParabéns! Você alcançou a linha de chegada.");
+
+                        jogoEstaEmAndamento = false;
+
+                        Console.Write("\nPressione ENTER para continuar...");
+                        Console.ReadLine();
+
+                        break;
+                    }
+
+                    if (resultadoJogador == 6)
+                    {
+                        Console.WriteLine($"\nEVENTO: Rodada Extra!");
+                        Console.WriteLine("-------------------------------------------");
+
+                        Console.Write("\nPressione ENTER para jogar novamente...");
+                        Console.ReadLine();
+
+                        continue;
+                    }
+                    else
+                    {
+                        Console.Write("\nPressione ENTER para continuar...");
+                        Console.ReadLine();
+
+                        break;
+                    }
+
+                } while (true);
+                #endregion
+
+                #region Rodada do Computador
                 Console.Clear();
                 Console.WriteLine("-------------------------------------------");
                 Console.WriteLine("Rodada do Computador");
@@ -130,6 +154,7 @@ class Program
 
                 Console.Write("\nPressione ENTER para continuar...");
                 Console.ReadLine();
+                #endregion
             }
 
             Console.Write("Deseja continuar? (s/N): ");
