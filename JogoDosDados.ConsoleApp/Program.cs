@@ -29,7 +29,7 @@ class Program
     {
         while (true)
         {
-            InicilizarPartida();
+            InicializarPartida();
 
             while (true)
             {
@@ -49,7 +49,7 @@ class Program
         }
     }
 
-    static void InicilizarPartida()
+    static void InicializarPartida()
     {
         Jogador.posicao = 0;
         Computador.posicao = 0;
@@ -57,7 +57,7 @@ class Program
 
     static bool JogadorDesejaContinuar()
     {
-        Console.Write("Deseja continuar? (s/N): ");
+        Console.Write("\nDeseja continuar? (s/N): ");
         string? opcaoContinuar = Console.ReadLine()?.ToUpper();
 
         if (opcaoContinuar != "S")
