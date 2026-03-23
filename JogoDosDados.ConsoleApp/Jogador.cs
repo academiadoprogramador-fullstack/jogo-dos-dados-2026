@@ -81,7 +81,7 @@ static class Jogador
 
     private static void ExibirCabecalho()
     {
-        // Console.Clear();
+        Console.Clear();
         Console.WriteLine("-------------------------------------------");
         Console.WriteLine("Jogo dos Dados");
         Console.WriteLine("-------------------------------------------");
