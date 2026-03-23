@@ -27,50 +27,32 @@ class Program
 {
     static void Main(string[] args)
     {
-        const int limiteLinhaChegada = 30;
-        const int bonusAvancoExtra = 3;
-        const int penalidadeRecuo = 2;
-
-        ExecutarPartida(limiteLinhaChegada, bonusAvancoExtra, penalidadeRecuo);
-    }
-
-    static void ExecutarPartida(
-        int limiteLinhaChegada,
-        int bonusAvancoExtra,
-        int penalidadeRecuo
-    )
-    {
         while (true)
         {
-            int posicaoJogador = 0;
-            int posicaoComputador = 0;
+            InicilizarPartida();
 
             while (true)
             {
-                posicaoJogador = Jogador.ExecutarRodada(
-                    posicaoJogador,
-                    limiteLinhaChegada,
-                    bonusAvancoExtra,
-                    penalidadeRecuo
-                );
+                Jogador.ExecutarRodada();
 
-                if (posicaoJogador >= limiteLinhaChegada)
+                if (Jogador.Venceu())
                     break;
 
-                posicaoComputador = Computador.ExecutarRodada(
-                    posicaoComputador,
-                    limiteLinhaChegada,
-                    bonusAvancoExtra,
-                    penalidadeRecuo
-                );
+                Computador.ExecutarRodada();
 
-                if (posicaoComputador >= limiteLinhaChegada)
+                if (Computador.Venceu())
                     break;
             }
 
             if (!JogadorDesejaContinuar())
                 break;
         }
+    }
+
+    static void InicilizarPartida()
+    {
+        Jogador.posicao = 0;
+        Computador.posicao = 0;
     }
 
     static bool JogadorDesejaContinuar()
